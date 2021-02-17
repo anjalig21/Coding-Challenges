@@ -1,30 +1,61 @@
-#include "q1.h"
+#include "q2.h"
 #include "cs136-trace.h"
-#include <assert.h>
-#include <limits.h>
 #include <stdbool.h>
 #include <stdio.h>
-#include <stdlib.h>
+#include <assert.h>
 
-double bisection(double (*f)(double), double lo, double hi, double tolerance) {
-  assert(tolerance > 0);
-  assert(lo < hi);
-  assert(f(lo) != 0);
-  assert(f(hi) != 0);
-  assert(((f(lo) < 0 && f(hi) > 0) || (f(lo) > 0 && f(hi) < 0)));
-  bool loop = true;
-  double midpoint = ((lo + hi) / 2);
-  while (loop) {
-    if ((f(midpoint) <= tolerance) && (f(midpoint) >= (tolerance * -1))) {
-      loop = false;
+int get_stats_params(int *sum, int *min, int *max) {
+  assert(min);
+  assert(max);
+  assert(sum);
+  int sum_count = 0;
+  int min_num = 0;
+  int max_num = 0;
+  int n = 0;
+  int counter = 0;
+  while (scanf("%d", &n) == 1) {
+    sum_count += n;
+    if (counter == 0) {
+      max_num = n;
+      min_num = n;
     }
-    else if (f(midpoint) < 0) {
-      lo = midpoint;
+    else if (n > max_num) {
+      max_num = n;
     }
-    else {
-      hi = midpoint;
+    else if (n < min_num) {
+      min_num = n;
     }
-    midpoint = ((lo + hi) / 2);
+    counter++;
   }
-  return midpoint;
+  *sum = sum_count;
+  *min = min_num;
+  *max = max_num;
+  return counter;
+}
+
+void get_stats_struct(struct statistics *stats) {
+  assert(stats);
+  int sum_count = 0;
+  int min_num = 0;
+  int max_num = 0;
+  int n = 0;
+  int counter = 0;
+  while (scanf("%d", &n) == 1) {
+    sum_count += n;
+    if (counter == 0) {
+      max_num = n;
+      min_num = n;
+    }
+    else if (n > max_num) {
+      max_num = n;
+    }
+    else if (n < min_num) {
+      min_num = n;
+    }
+    counter++;
+  }
+  stats->sum = sum_count;
+  stats->min = min_num;
+  stats->max = max_num;
+  stats->count = counter;
 }

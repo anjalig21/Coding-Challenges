@@ -1,27 +1,41 @@
-// This module provides functions that calculate stats
-//   on integer inputs
+// You should complete this interface
 
-// The following applies to all functions:
-// requires: all pointer parameters are valid
-
-struct statistics {
-  int count;
-  int sum;
-  int min;
-  int max;
+struct burger_shack {
+  int buns;
+  int cheese;
+  int patties;
+  int pickles;
 };
-// requires: count >= 0
 
+// in your burger_shack, you should define this constant
+extern const struct burger_shack empty_shack;
 
-// get_stats_params(sum, min, max) reads in all integers from input
-//   and updates *sum, *min and *max accordingly, returning the
-//   count of how many numbers were read in
-// effects: reads input
-//          modifies *sum, *min, *max
-int get_stats_params(int *sum, int *min, int *max);
+// add_cheese(blocks) adds blocks of cheese to the inventory.
+// A block contains 36 slices of cheese.
+// effects: produces output
+void add_pickles(struct burger_shack *shack, int jars);
 
-// get_stats_struct(stats) reads in all integers from input and updates
-//   the stats structure accordingly.
-// effects: reads input
-//          modifies *stats
-void get_stats_struct(struct statistics *stats);
+// add_buns(crates) adds crates of buns to the inventory. 
+// A crate contains a dozen dozen (144) buns.
+// effects: produces output
+void add_buns(struct burger_shack *shack, int crates);
+
+// add_cheese(blocks) adds blocks of cheese to the inventory.
+// A block contains 36 slices of cheese.
+// effects: produces output
+void add_cheese(struct burger_shack *shack, int blocks);
+
+// add_patties(boxes) adds boxes of patties to the inventory.
+// A box contains 48 patties.
+// effects: produces output
+void add_patties(struct burger_shack *shack, int boxes);
+
+// order(burgers) tries to fulfill an order for the given 
+// quantity of ++burgers.
+// effects: produces output
+void order(struct burger_shack *shack, int burgers);
+
+// check_inventory() prints a message listing all of the current 
+// ingredient inventory levels.
+// effects: produces output
+void check_inventory(const struct burger_shack *shack);

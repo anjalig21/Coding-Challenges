@@ -1,143 +1,107 @@
-#include "q3.h"
+// A
+
 #include "cs136-trace.h"
-#include <limits.h>
-#include <stdbool.h>
+#include "stack.h"
 #include <stdio.h>
-#include <stdlib.h>
 
-// This initial "empty" shack depends on your burger_shack structure.
-// Because we don't know what your fields are, we can't do this for you.
-// If your fields simply need to be all initialized to zero, then
-//   you do not have to change this constant:
-const struct burger_shack empty_shack = {0};
-
-// you must complete this implementation
-
-void add_pickles(struct burger_shack *shack, int jars) {
-  if (jars > 0) {
-    shack->pickles = shack->pickles + (250 * jars);
+// This program reads in all characters from input until EOF occurs, 
+// and then prints out all of the characters in reverse order.
+int main(void) {
+  struct stack *s = stack_create();
+  char n = '0';
+  while (scanf("%c", &n) == 1) {
+    stack_push(n, s);
   }
-  else {
-    printf("invalid: add_pickles\n");
-  }
+  while (!stack_is_empty(s)) {
+    printf("%c", stack_pop(s));
+  } 
+  stack_destroy(s);
 }
 
-void add_buns(struct burger_shack *shack, int crates) {
-  if (crates > 0) {
-    shack->buns = shack->buns + (crates * 144);
+
+// B
+
+// This program reads in all integers from input and prints them 
+// out in their original order and then in reverse order and then 
+// in their original order, and finally one more time in their 
+// reverse order (4 times in total). 
+int main(void) {
+  struct stack *reverse = stack_create();
+  struct stack *original = stack_create();
+  int n = 0;
+  while (scanf("%d", &n) == 1) {
+    printf("%d\n", n);
+    stack_push(n, reverse);
   }
-  else {
-    printf("invalid: add_buns\n");
+  while (!stack_is_empty(reverse)) {
+    printf("%d\n", stack_top(reverse));
+    stack_push(stack_pop(reverse), original);
   }
+  while (!stack_is_empty(original)) {
+    printf("%d\n", stack_top(original));
+    stack_push(stack_pop(original), reverse);
+  }
+  while (!stack_is_empty(reverse)) {
+    printf("%d\n", stack_top(reverse));
+    stack_push(stack_pop(reverse), original);
+  }
+  stack_destroy(original);
+  stack_destroy(reverse);
 }
 
-void add_cheese(struct burger_shack *shack, int blocks) {
-  if (blocks > 0) {
-    shack->cheese = shack->cheese + (blocks * 36);
-  }
-  else {
-    printf("invalid: add_cheese\n");
-  }
-}
 
-void add_patties(struct burger_shack *shack, int boxes) {
-  if (boxes > 0) {
-    shack->patties = shack->patties + (boxes * 48);
-  }
-  else {
-    printf("invalid: add_patties\n");
-  }
-}
+// C
 
-void order(struct burger_shack *shack, int burgers) {
-  if (burgers <= 0) {
-    printf("invalid: order\n");
-  }
-  else if ((2 * burgers <= shack->patties) &&
-           (2 * burgers <= shack->cheese) &&
-           (3 * burgers <= shack->pickles) && 
-           (burgers <= shack->buns)) {
-    shack->patties = shack->patties - (2 * burgers);
-    shack->cheese = shack->cheese - (2 * burgers);
-    shack->pickles = shack->pickles - (3 * burgers);
-    shack->buns = shack->buns - burgers;
-    printf("order complete: %d burgers\n", burgers);
-  }
-  else {
-    printf("order cancelled:\n");
-    if (shack->buns < burgers) {
-      printf("  not enough buns\n");
-      if (shack->cheese < (2 * burgers)) {
-        printf("  not enough cheese\n");
-        if (shack->patties < (2 * burgers)) {
-          printf("  not enough patties\n");
-          if (shack->pickles < (3 * burgers)) {
-            printf("  not enough pickles\n");
-          }
-        }
+// This program reads in all characters from input and prints 
+// either "balanced\n" or "unbalanced\n" with respect to 
+// whether the brackets in the input are balanced or not.
+int main(void) {
+  struct stack *brackets = stack_create();
+  char n = '0';
+  while (scanf("%c", &n) == 1) {
+    if (n == '(' || n == '{' || n == '[' || n == '<') {
+      stack_push(n, brackets);
+    }
+    else if (n == ')') {
+      if (stack_top(brackets) == '(') {
+        stack_pop(brackets);
+      }
+      else {
+        printf("unbalanced\n");
+        break;
       }
     }
-    else if (shack->cheese < (2 * burgers)) {
-      printf("  not enough cheese\n");
-      if (shack->patties < (2 * burgers)) {
-        printf("  not enough patties\n");
-        if (shack->pickles < (3 * burgers)) {
-          printf("  not enough pickles\n");
-        }
+    else if (n == '}') {
+      if (stack_top(brackets) == '{') {
+        stack_pop(brackets);
+      }
+      else {
+        printf("unbalanced\n");
+        break;
       }
     }
-    else if (shack->patties < (2 * burgers)) {
-      printf("  not enough patties\n");
-      if (shack->pickles < (3 * burgers)) {
-        printf("  not enough pickles\n");
+    else if (n == ']') {
+      if (stack_top(brackets) == '[') {
+        stack_pop(brackets);
+      }
+      else {
+        printf("unbalanced\n");
+        break;
       }
     }
-    else if (shack->pickles < (3 * burgers)) {
-      printf("  not enough pickles\n");
+    else if (n == '>') {
+      if (stack_top(brackets) == '<') {
+        stack_pop(brackets);
+      }
+      else {
+        printf("unbalanced\n");
+        break;
+      }
     }
   }
+  if (stack_is_empty(brackets)) {
+    printf("balanced\n");
+  }
+  stack_destroy(brackets);
 }
 
-void check_inventory(const struct burger_shack *shack) {
-  printf("inventory:\n");
-  printf("  buns: [%d] ", shack->buns);
-  if (shack->buns < 10) {
-    printf("WARNING\n");
-  }
-  else if (shack->buns < 100) {
-     printf("LOW\n");
-  }
-  else {
-    printf("OK\n");
-  }
-  printf("  cheese: [%d] ", shack->cheese);
-  if (shack->cheese < 20) {
-    printf("WARNING\n");
-  }
-  else if (shack->cheese < 200) {
-     printf("LOW\n");
-  }
-  else {
-    printf("OK\n");
-  }
-  printf("  patties: [%d] ", shack->patties);
-  if (shack->patties < 20) {
-    printf("WARNING\n");
-  }
-  else if (shack->patties < 200) {
-     printf("LOW\n");
-  }
-  else {
-    printf("OK\n");
-  }
-  printf("  pickles: [%d] ", shack->pickles);
-  if (shack->pickles < 30) {
-    printf("WARNING\n");
-  }
-  else if (shack->pickles < 300) {
-     printf("LOW\n");
-  }
-  else {
-    printf("OK\n");
-  }
-}
