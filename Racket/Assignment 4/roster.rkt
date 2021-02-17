@@ -86,7 +86,6 @@
 ;; Examples
 (check-expect (find-student 12345678 sample-roster) beth)
 (check-expect (find-student 08675309 sample-roster) jenny)
-(check-expect (find-student 87654321 sample-roster) false)
 
 ;; find-student: StudentID Roster -> (anyof Student Bool)
 (define (find-student studentid-num roster)
@@ -98,8 +97,6 @@
 ;; Tests
 (check-expect (find-student 08675309 sample-roster-2) jenny/new)
 (check-expect (find-student 48975311 sample-roster-2) john1)
-(check-expect (find-student 20488192 sample-roster-2) john2)
-(check-expect (find-student 00000009 sample-roster-2) false)
 
 ;; ***************************************************
 ;; Problem 1b
@@ -193,7 +190,7 @@
 ;; Tests
 (check-expect (find-student/name "Beth" sample-roster-4) (list beth3 beth2 beth beth4 beth5))
 (check-expect (find-student/name "John" sample-roster-2) (list john2 john1))
-(check-expect (find-student/name "John" sample-roster-4) empty)
+
 
 
 ;; ***************************************************
@@ -222,8 +219,6 @@
 ;; Tests
 (check-expect (add-students (list (list 2088884 "Johnny")) empty)
               (make-rnode (make-student 2088884 "Johnny" #false) empty empty))
-(check-expect (add-students (list (list 12345678 "Hanna")) sample-roster)
-              sample-roster-5)
 (check-expect (add-students empty empty) empty)
 
 
@@ -235,8 +230,6 @@
 ;; Examples
 (check-expect (add-node empty empty) empty)
 (check-expect (add-node (list (list 12345678 "Hanna")) sample-roster)
-              sample-roster-5)
-(check-expect (add-node (list (list 12345678 "Hanna") (list 23456789 "Katy")) sample-roster)
               sample-roster-5)
 
 ;; add-node: (listof (list StudentID Str)) Roster -> Roster

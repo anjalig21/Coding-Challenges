@@ -14,7 +14,6 @@
 ;; Examples
 (check-expect (occurrences 2 '(1 2 1 2 2 3 1)) 3)
 (check-expect (occurrences 2 '(0 9 8 7 6 100)) 0)
-(check-expect (occurrences 98 '(0 9 8 7 6 98)) 1)
 
 ;; occurrences: Num (listof Num) -> Nat
 (define (occurrences num listof-nums)
@@ -25,7 +24,6 @@
 (check-expect (occurrences 20 empty) 0)
 (check-expect (occurrences 20 '(0 9 8 20 6 98)) 1)
 (check-expect (occurrences -20 '(-20 9 8 20 6 98)) 1)
-(check-expect (occurrences 4 '(4 4 4 40 4 4)) 5)
 
 
 ;; ***************************************************
@@ -50,7 +48,6 @@
 
 ;; Tests
 (check-expect (zip '(-1 2 a &) '(a b c &)) '((-1 a)(2 b)(a c)(& &)))
-(check-expect (zip '(1 1 1 1) '(1 1 1 1)) '((1 1)(1 1)(1 1)(1 1)))
 (check-expect (zip '(1 0) '(0 1)) '((1 0)(0 1)))
 (check-expect (zip '(1) '(0)) '((1 0)))
 
