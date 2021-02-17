@@ -11,11 +11,6 @@
 ;; if the number of 1’s in the string is odd, or the symbol ’even
 ;; if the number of 1’s in the string is even.
 
-;; Examples
-(check-expect (parity "110101") 'even)
-(check-expect (parity "1110011") 'odd)
-(check-expect (parity "0110011") 'even)
-
 ;; parity: Str -> Sym
 ;;   requires string to contain only 0s or 1s
 (define (parity bin-string)

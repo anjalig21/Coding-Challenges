@@ -83,10 +83,6 @@
 ;; roster does not contain a student with that ID, the function
 ;; produces false.
 
-;; Examples
-(check-expect (find-student 12345678 sample-roster) beth)
-(check-expect (find-student 08675309 sample-roster) jenny)
-
 ;; find-student: StudentID Roster -> (anyof Student Bool)
 (define (find-student studentid-num roster)
   (cond [(empty? roster) false]
@@ -104,10 +100,6 @@
 
 ;; (class-average roster) consumes a Roster, roster, and produces the
 ;; class average (mean).
-
-;; Examples
-(check-expect (class-average sample-roster) (+ 90 2/3))
-(check-expect (class-average sample-roster-2) (+ 90 2/3))
 
 ;; class-average: Roster -> Num
 (define (class-average roster)

@@ -195,11 +195,6 @@
 ;; (gesture-length gesture) consumes a Gesture, gesture,
 ;; and produces its length. 
 
-;; Examples
-(check-within (gesture-length (list (list 1 2) (list 0 9) (list 5 4))) 14.14 0.01)
-(check-within (gesture-length (list (list 0 0))) 0 0.01)
-(check-expect (gesture-length empty) empty)
-
 ;; gesture-length: Gesture -> Num
 (define (gesture-length gesture)
   (cond [(empty? gesture) empty]
@@ -312,13 +307,6 @@
 ;; and produces a sampling of gesture 5 points:
 ;; the first, n/4th, n/2th, 3n/4th, and last point.
 
-;; Examples:
-(check-expect (five-sample (list (list 1 1) (list 2 2)))
-              (list (list 1 1) (list 1 1) (list 2 2) (list 2 2) (list 2 2)))
-(check-expect (five-sample (list (list 1 1) (list 2 2) (list 3 3) (list 4 4)
-                                (list 5 5) (list 6 6) (list 7 7) (list 8 8)))
-              (list (list 1 1) (list 3 3) (list 5 5) (list 7 7) (list 8 8)))
-
 ;; five-sample: Gesture -> Gesture
 ;;  requires: gesture is non-empty
 (define (five-sample gesture)
@@ -347,11 +335,6 @@
 ;; (move-and-scale gesture x-scale y-scale) consumes a Gesture, gesture
 ;; a number, x-scale, and a number, y-scale, and then
 ;; moves gesture to (0,0) and scales it by (x-scale)x(y-scale)
-
-;; Examples:
-(check-expect (move-and-scale (list (list 1 1)) 1 1) (list (list 0 0)))
-(check-expect (move-and-scale (list (list 1 5) (list 3 4)) 1 2)
-              (list (list 0 2) (list 2 0)))
 
 ;; move-and-scale: Gesture Num Num -> Gesture
 ;;  requires: gesture is non-empty
@@ -417,14 +400,6 @@
 
 ;; (normalize-gesture gesture) consumes a Gesture, gesture,
 ;; and normalizes gesture to (0,0) and a standard size
-
-;; Examples:
-(check-within (normalize-gesture (list (list 0 0) (list 100 100)))
-              (list (list 0 0) (list 200 200)) 0.01)
-(check-within (normalize-gesture (list (list 100 0) (list 100 50) (list 200 50)))
-              (list (list 0 0) (list 0 200) (list 200 200)) 0.01)
-(check-within (normalize-gesture (list (list 10 10) (list 30 30) (list 50 50) (list 70 70) (list 80 80)))
-              (list (list 0 0) (list 57.142857 57.142857) (list 114.285714 114.285714) (list 171.428571 171.428571) (list 200 200)) 0.01)
 
 ;; normalize-gesture: Gesture -> Gesture
 ;; requires: gesture is not both vertical and horizontal
@@ -562,11 +537,6 @@
 ;; (five-point-rec candidate template-library) produces the symbol in
 ;; template-library closest to candidate.
 
-;; Examples:
- (check-expect (five-point-rec testd templates) 'd)
- (check-expect (five-point-rec testk templates) 'k)
- (check-expect (five-point-rec empty templates) empty)
-
 ;; five-point-rec Gesture TL -> Sym
 ;; requires: candidate is not both vertical and horizontal
 (define (five-point-rec candidate template-library)
@@ -663,12 +633,6 @@
 ;; gesture1 and gesture2, and produces the average distance between
 ;; points in sub-sampled gesture1 and gesture2 after sub-sampling them with k points.
 
-;; Examples
-(check-within (geometric-match
-               (list (list 10 10) (list 30 30) (list 50 50) (list 70 70) (list 80 80))
-               (list (list 10 10) (list 20 20) (list 30 30) (list 40 40) (list 40 40)) 5)
-               16.16 0.01)
-
 ;; geometric-match: Gesture Gesture Nat -> Num
 (define (geometric-match gesture1 gesture2 k)
   (cond [(or (empty? gesture1) (empty? gesture2)) empty]
@@ -700,11 +664,6 @@
 ;; (k-point-rec candidate template-library k) consumes a Gesture,
 ;; candidate, a TL, template-library, and a natural number, k, and
 ;; produces the symbol in template-library closest to candidate.
-
-;; Examples
-(check-expect (k-point-rec testd templates 5) 'd)
-(check-expect (k-point-rec testk templates 5) 'k)
-(check-expect (k-point-rec empty templates 5) empty)
 
 ;; k-point-rec: Gesture TL Nat -> Sym
 ;;  requires: candidate is not both vertical and horizontal

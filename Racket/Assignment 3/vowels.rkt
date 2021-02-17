@@ -18,11 +18,6 @@
 ;; and produces the total number of lower-case vowels in all of the strings.
 ;; The vowels are "a", "e", "i", "o", and "u" for this function.
 
-;; Examples
-(check-expect (total-vowels (cons "test" (cons "look" empty))) 3)
-(check-expect (total-vowels (cons "test" (cons "look" (cons "yellow" empty)))) 5)
-(check-expect (total-vowels empty) 0)
-
 ;; total-vowels: (listof Str) -> Nat
 (define (total-vowels listof-strings)
   (cond [(empty? listof-strings) 0]

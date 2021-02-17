@@ -36,17 +36,6 @@
 ;; (valid-date? y) consumes a number y, representing a date,
 ;; and outputs true if the date is valid otherwise outputs false
 
-
-;; Examples
-(check-expect(valid-date? 123456789) false)
-(check-expect(valid-date? 20200228) true)
-(check-expect(valid-date? 20201031) true)
-(check-expect(valid-date? 20151130) true)
-(check-expect(valid-date? 20210228) true)
-(check-expect(valid-date? 20210928) true)
-
-
-
 ;; valid-date?: Nat -> Bool
 ;;   requires year > 0, month > 0, day > 0
 
@@ -86,10 +75,6 @@
 
 ;; (leap-year? x) consumes a number that represents
 ;; a year and outputs true if the year is a leap year
-
-;; Examples
-(check-expect(leap-year? 1900) false)
-(check-expect(leap-year? 1904) true)
 
 ;; leap-year?: Nat -> Bool
 

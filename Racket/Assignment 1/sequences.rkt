@@ -11,12 +11,6 @@
 ;; (sequence-type a b c d) consumes 4 numbers a, b, c, d and states whether the
 ;; sequence is arithmetic, geometric, both or neither.
 
-
-;; Examples
-(check-expect(sequence-type 1 2 3 4) 'arithmetic)
-(check-expect(sequence-type 1 2 4 8) 'geometric)
-
-
 ;; sequence-type: Num Num Num Num -> Sym
 
 
@@ -42,12 +36,6 @@
 ;; (geo-detection a b c d) consumes 4 numbers a, b, c, d and determines whether the last
 ;; 3 numbers are all 0s. If they are, it is a geometric sequence.
 
-
-;; Example
-(check-expect(geo-detection 2 0 0 0) true)
-(check-expect(geo-detection 2 0 1 0) false)
-
-
 ;; geo-detection: Num Num Num Num -> Bool
 
 
@@ -59,12 +47,6 @@
 
 ;; (zero-detection a b c d) consumes 4 numbers a, b, c, d and determines whether any
 ;; of the numbers are zeroes.
-
-
-;; Example
-(check-expect(zero-detection 0 3 5 0) true)
-(check-expect(zero-detection 1 3 5 100) false)
-
 
 ;; zero-detection: Num Num Num Num -> Bool
 

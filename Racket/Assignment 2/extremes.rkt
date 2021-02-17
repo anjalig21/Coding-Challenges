@@ -11,10 +11,6 @@
 ;; (smallest nums) consumes a list of numbers, nums, and
 ;; outputs the smallest number
 
-;; Examples
-(check-expect(smallest (cons -5 empty)) -5)
-(check-expect(smallest (cons -5 (cons 2 (cons 10.5 empty)))) -5)
-
 ;; smallest: (ne-listof Num) -> Num
 (define (smallest nums)
   (cond [(empty? (rest nums)) (first nums)]
@@ -33,10 +29,6 @@
 
 ;; (largest nums) consumes a list of numbers, nums, and
 ;; outputs the largest number
-
-;; Examples
-(check-expect(largest (cons -5 empty)) -5)
-(check-expect(largest (cons -5 (cons 2 (cons 10.5 empty)))) 10.5)
 
 ;; largest: (ne-listof Num) -> Num
 (define (largest nums)
@@ -57,10 +49,6 @@
 
 ;; (max-diff nums) consumes a list of numbers, nums, and
 ;; outputs the largest difference between any two numbers
-
-;; Examples
-(check-expect(max-diff (cons -5 empty)) 0)
-(check-expect(max-diff (cons -5 (cons 2 (cons 10.5 empty)))) 15.5)
 
 ;; max-diff: (ne-listof Num) -> Num
 (define (max-diff nums)
